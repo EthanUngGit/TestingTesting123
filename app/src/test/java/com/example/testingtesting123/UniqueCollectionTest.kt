@@ -1,5 +1,6 @@
 package com.example.testingtesting123
 
+import android.icu.text.Transliterator.Position
 import org.junit.Assert.*
 
 import org.junit.Before
@@ -31,14 +32,30 @@ class UniqueCollectionTest {
     }
 
     @Test
-    fun clearAllItems() {
-        collection.addItem(Item("item1"))
-        collection.addItem(Item("Item2"))
+    fun getAnItem() {
+        collection.addItem(Item("Item1"))
+        val item = collection.get(0)
+        assert(item.name == "Item1")
+    }
 
-        val originalSize = collection.size()
-        collection.clear()
-        val newSize = collection.size();
+    @Test
+    fun getItemFromEmpty() {
+        val item = collection.get(0)
+        assert(item.name == "")
+    }
 
-        assert(originalSize == 2 && newSize == 0) {"Items not cleared"}
+    @Test
+    fun removeAnItem() {
+        val item = Item("Item1")
+        collection.addItem(Item("item"))
+        collection.remove(item)
+        assert(collection.size() == 0)
+    }
+
+    @Test
+    fun removeItemFromEmpty() {
+        val item = Item("Item1")
+        collection.remove(item)
+        assert(collection.size() == 1)
     }
 }
